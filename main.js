@@ -1,16 +1,24 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
+let mainWindow
+
 function createWindow () {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+   mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 800,
     webPreferences: {
+      nodeIntegration: true,
+      nodeIntegrationInWorker: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
 
-  win.loadFile('index.html')
+  // The open developer Tools
+  mainWindow.webContents.openDevTools();
+
+  // Load File html index
+  mainWindow.loadFile('index.html')
 }
 
 app.whenReady().then(() => {
